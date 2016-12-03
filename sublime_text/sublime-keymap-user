@@ -1,0 +1,19 @@
+[
+  // 代码提示
+  { "keys": ["cmd+."], "command": "auto_complete" },
+  { "keys": ["cmd+."], "command": "replace_completion_with_auto_complete", "context":
+    [
+      { "key": "last_command", "operator": "equal", "operand": "insert_best_completion" },
+      { "key": "auto_complete_visible", "operator": "equal", "operand": false },
+      { "key": "setting.tab_completion", "operator": "equal", "operand": true }
+    ]
+  },
+  // 跳转到函数定义
+  // { "keys": ["ctrl+alt+d"], "command": "goto_definition" },
+  { "keys": ["super+shift+v"], "command": "clipboard_display" },
+  { "keys": ["super+ctrl+alt+d"], "command": "clipboard_clear_history" },
+  { "keys": ["super+shift+c"], "command": "copy_path" },
+  { "keys": ["alt+1"], "command": "toggle_side_bar" },
+  { "keys": ["alt+2"], "command": "focus_side_bar" },
+  { "keys": ["super+shift+e"], "command": "reveal_in_side_bar" }
+]
