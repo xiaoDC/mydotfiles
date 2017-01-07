@@ -1,5 +1,5 @@
 [alias]
-  aa = add .
+	aa = add .
   co = checkout
   ci = commit
   cim = commit -m
@@ -18,15 +18,18 @@
   type = cat-file -t
   dump = cat-file -p
 [core]
-	excludesfile = /Users/chenglong/.gitignore_global
+	excludesfile = /Users/fri3nds/.gitignore_global
 	editor = vim
 	ignorecase = false
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [user]
-	name = $name
-	email = $email
+	name = [name]
+	email = [email]
+[commit]
+	template = /Users/fri3nds/.stCommitMsg

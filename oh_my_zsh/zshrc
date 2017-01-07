@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/chenglong/.oh-my-zsh
+export ZSH=/Users/fri3nds/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -59,11 +59,12 @@ ZSH_THEME="my_theme"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions web-search git-flow)
+plugins=(git npm tmux history zsh-autosuggestions web-search git-flow git-open k)
 
 # User configuration
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+# export PATH="$PATH:`yarn global bin`"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -92,33 +93,127 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim="/usr/local/bin/vim"
+# alias vim="/usr/local/bin/vim"
 alias git="/usr/local/bin/git"
+
+# Alias
+# alias gfl='git flow'
+# alias gfli='git flow init'
+# alias gcd='git checkout develop'
+# alias gch='git checkout hotfix'
+# alias gcr='git checkout release'
+# alias gflf='git flow feature'
+# alias gflh='git flow hotfix'
+# alias gflr='git flow release'
+# alias gflfs='git flow feature start'
+# alias gflhs='git flow hotfix start'
+# alias gflrs='git flow release start'
+# alias gflff='git flow feature finish'
+# alias gflhf='git flow hotfix finish'
+# alias gflrf='git flow release finish'
 alias gff="git flow feature"
 alias gfr="git flow release"
 alias gfh="git flow hotfix"
+
+alias gh="git gh"
 alias ll="ls -al"
-alias st='open -a "Sublime Text"'
+# alias st='open -a "Sublime Text"'
 alias aes='openssl enc -aes-256-cbc'
-alias of='opendiff'
+alias aes_encryption='openssl enc -aes-256-cbc -e'
+alias aes_decryption='openssl enc -aes-256-cbc -d'
+
+# alias rm='rmtrash'
 # 统计当前目前下文件个数(不包括文件夹)
 alias lc="ls -lhG | grep "^-" && ls -lhG | grep "^-" | wc -l"
 
 # 统计当前目前下文件夹个数(不包括文件)
 alias ld="ls -lhGd */ && ls -lhGd */ | grep "^d" | wc -l"
 # 查看 wifi 密码的 shell
-# alias wifipwd='security find-generic-password -ga "$1" | grep "password:"'
-alias am="atom"
+# 查alias wifipwd='security find-generic-password -ga "$1" | grep "password:"'
+# alias am="atom"
 alias op="open"
-alias cat="ccat"
+alias oo='open .'
+alias cc="ccat $0 | nl"
+alias st="stree"
 alias his="history"
+alias gs="google"
 alias getAliYunConf="python ~/tools/script/fabfileInit.py"
+alias deploy="ansible-playbook"
+alias ec="sh ~/.emacs_shell/emacsclient.sh"
+alias es="sh ~/.emacs_shell/emacsstop.sh"
+
+# 获取自己公网地址
+alias ipmap="curl http://ipinfo.io/ip | iponmap"
+alias ip="curl http://www.ip.cn"
+
+
 
 
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+eval "$(pyenv init -)"
+export PYTHON_CONFIGURE_OPTS="--enable-framework"
 
 alias pc=proxychains4
 # vs () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
+###-begin-npm-completion-###
+#
+# npm command completion script
+#
+# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
+#
+
+if type complete &>/dev/null; then
+  _npm_completion () {
+    local words cword
+    if type _get_comp_words_by_ref &>/dev/null; then
+      _get_comp_words_by_ref -n = -n @ -w words -i cword
+    else
+      cword="$COMP_CWORD"
+      words=("${COMP_WORDS[@]}")
+    fi
+
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           npm completion -- "${words[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  complete -o default -F _npm_completion npm
+elif type compdef &>/dev/null; then
+  _npm_completion() {
+    local si=$IFS
+    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+                 COMP_LINE=$BUFFER \
+                 COMP_POINT=0 \
+                 npm completion -- "${words[@]}" \
+                 2>/dev/null)
+    IFS=$si
+  }
+  compdef _npm_completion npm
+elif type compctl &>/dev/null; then
+  _npm_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       npm completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _npm_completion npm
+fi
+###-end-npm-completion-###
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
