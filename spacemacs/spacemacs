@@ -27,29 +27,34 @@ values."
     ;; If non-nil layers with lazy install support are lazy installed.
     ;; List of additional paths where to look for configuration layers.
     ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-    dotspacemacs-configuration-layer-path '()
+    dotspacemacs-configuration-layer-path '(
+                                             ;; "~/.emacs.d/private/layers/"
+                                             )
     ;; List of configuration layers to load.
     dotspacemacs-configuration-layers
-    '(
+       '(
+       clojure
+       markdown
+       ;; clojure
+       ;; shadow-vue
       ;; octave
       ;; vimscript
+      ivy
       html
-      ;; clojure
+      dash
       javascript
-      ;; typescript
+      typescript
       ;; ----------------------------------------------------------------
       ;; Example of useful layers you may want to use right away.
       ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
       ;; <M-m f e R> (Emacs style) to install them.
       ;; ----------------------------------------------------------------
       yaml
-      helm
+      ;; helm
       search-engine
       ;; better-defaults
       ;; osx
-      ;; emacs-lisp
-      git
-      markdown
+      ;; emacs-lisp git markdown
       ;; react
       (vinegar :variables vinegar-reuse-dired-buffer t)
       (auto-completion :variables auto-completion-enable-sort-by-usage t
@@ -78,28 +83,37 @@ values."
                                         ;; dracula-theme
                                         diff-hl
                                         find-file-in-project
+                                        ;; google-translate
+                                        ;; google-translate-default-ui
                                         ;; forest-blue-theme
                                         ;; highlight-chars
                                         ;; flycheck
-                                        ;; magit
+                                        magit
+                                        ;; mmm-mode
+                                        ;; stylus-mode
                                         git-gutter
                                         git-gutter-fringe
                                         git-gutter-fringe+
                                         highlight-indent-guides
+                                        helm-projectile
+                                        helm-ring
                                         js2-mode
+                                        solarized-theme
+                                        ;; js3-mode
                                         keyfreq
                                         projectile
-                                        ;; material-theme
                                         neotree
                                         youdao-dictionary
                                         reveal-in-osx-finder
                                         ;; slim-mode
                                         ;; gotham-theme
                                         ;; monokai-theme
-                                        ;; material-theme
-                                        ;; moe-theme
-                                        ;; atom-one-dark-theme
+                                        material-theme
+                                        atom-one-dark-theme
                                         doom-themes
+                                        ;; doom-nlinum
+                                        window-numbering
+                                        nlinum
                                       )
     ;; A list of packages that cannot be updated.
     dotspacemacs-frozen-packages '()
@@ -127,10 +141,12 @@ values."
 
                                       ;; ggtags
                                       livid-mode
-
+                                      ;; linum
+                                      linum-relative
                                       ;; git-gutter
                                       ;; git-gutter-fringe
                                       ;; git-gutter-fringe+
+                                      ;; helm
                                       helm-make
                                       helm-flyspell
                                       helm-purpose
@@ -164,6 +180,8 @@ values."
     ;; them if they become unused. `all' installs *all* packages supported by
     ;; Spacemacs and never uninstall them. (default is `used-only')
     dotspacemacs-install-packages 'used-only))
+
+
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -226,11 +244,11 @@ values."
     ;; Press <SPC> T n to cycle to the next theme in the list (works great
     ;; with 2 themes variants, one dark and one light)
     dotspacemacs-themes '(
-                          solarized-dark
-                          spacemacs-dark
-                          ;; atom-one-dark
-                          ;; atom-one-dark
-                          ;; spacemacs-light
+                           atom-one-dark
+                           solarized-dark
+                           spacemacs-dark
+                           ;; doom-one
+                           ;; material
                           )
     ;; If non nil the cursor color matches the state color in GUI Emacs.
     dotspacemacs-colorize-cursor-according-to-state t
@@ -238,14 +256,14 @@ values."
     ;; quickly tweak the mode-line size to make separators look not too crappy.
     dotspacemacs-default-font '(
                                  ;; "Source Code Pro"
-                                 ;; :size 18
+                                 ;; :size 16
                                  ;; "mononoki"
-                                 "Fira Code"
-                                 :size 18
+                                 ;; "Fira Code"
+                                 ;; :size 16
                                  ;; "Anonymous pro"
                                  ;; :size 18
-                                 ;; "Menlo"
-                                 ;; :size 18
+                                 "Menlo"
+                                 :size 15
                                  :weight normal
                                  :width normal
                                  :powerline-scale 1.0)
@@ -382,7 +400,8 @@ values."
     dotspacemacs-highlight-delimiters 'all
     ;; If non nil, advise quit functions to keep server open when quitting.
     ;; (default nil)
-    dotspacemacs-persistent-server nil
+    ;; dotspacemacs-persistent-server nil
+    dotspacemacs-persistent-server t
     ;; List of search tool executable names. Spacemacs uses the first installed
     ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
     ;; (default '("ag" "pt" "ack" "grep"))
@@ -402,6 +421,8 @@ values."
 
 
 
+
+
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init', before layer configuration
@@ -412,11 +433,16 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq configuration-layer--elpa-archives
         '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "http://elpa.emacs-china.org/org/")
-          ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
+          ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")
+          ;; ("melpa" . "http://melpa.org/packages/")
+          ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
+          ;; ("marmalade" . "http://marmalade-repo.org/packages/")
+          ;; ("elpy" . "http://jorgenschaefer.github.io/packages/")
+          ;; ("gnu" . "http://elpa.gnu.org/packages/")
+           ))
   (setq exec-path-from-shell-arguments '("-l"))
   (setq purpose-mode nil)
   )
-
 
 
 (defun dotspacemacs/user-config ()
@@ -434,19 +460,28 @@ you should place your code here."
   ;; (setq gc-cons-threshold most-positive-fixnum)
   ;; (setq gc-cons-threshold best-gc-cons-threshold)
 
+  ;; (setq redisplay-dont-pause nil)
   (setq insert-directory-program "/usr/local/bin/gls")
   ;; (setq show-trailing-whitespace t)
 
   ;; (add-to-list 'yas-snippet-dirs "~/.spacemacs.d/snippets/")
   ;; (add-to-list 'load-path
     ;; (expand-file-name ""))
+  ;; (setq helm-dash-enable-debugging nil)
+
+
+  ;; helm 查找文件时，file no exist 不创建 buffer
+  (setq helm-ff-newfile-prompt-p nil)
+
+
   (setq yas-snippet-dirs
     '(
-       "~/.spacemacs.d/snippets/"
+       "~/.emacssnippets/snippets/"
        "~/.emacs.d/layers/+completion/auto-completion/local/snippets"))
   (setq yas-indent-line 'fixed)
   ;; (yas-reload-all)
   (yas-global-mode 1)
+
   (eval-after-load "yasnippet"
     '(progn (defadvice yas--modes-to-activate (after my-simple-advise)
               ;; (when (or (eq major-mode 'sass-mode) (eq major-mode 'scss-mode))
@@ -454,19 +489,26 @@ you should place your code here."
                 (setq ad-return-value (remove 'haml-mode ad-return-value))))
        (ad-activate 'yas--modes-to-activate)))
 
+  ;; (require 'doom-nlinum)
   ;; (setq blank-style '(mark))
   ;; (setq blank-chars '(tabs spaces space-before-atb space-after-tab))
+  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/private/theme")
 
   ;; (load-theme 'material t)
-  ;; (load "~/.emacs.d/private/local/forest-blue-theme.el")
-  (load-theme 'doom-one t)
+  ;; (load-theme 'doom-one t)
+  ;; (load-theme 'nord t)
+  ;; (load-theme 'doom-molokai t)
   ;; (load-theme 'forest-blue t)
   ;; (load-theme 'misterioso t)
   ;; (load-theme 'gotham t)
   ;; (load-theme 'monokai t)
-  ;; (load-theme 'moe-dark t)
+  ;; (load-theme 'moe t)
   ;; (load-theme 'atom-one-dark t)
 
+  ;; (modify-syntax-entry ?_ "w")
+  ;; (modify-syntax-entry ?- "w")
+  ;; (with-eval-after-load 'evil
+  ;;   (defalias #'forward-evil-word #'forward-evil-symbol))
 
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1)
@@ -476,7 +518,8 @@ you should place your code here."
 
   (setq-default dired-omit-files-p t)
   (setq-default neo-window-fixed-size nil)
-  (setq dired-omit-files "^\\.DS_Store$\\|^\\.$")
+  ;; (setq dired-omit-files "^\\.DS_Store$\\|^\\.$")
+  (setq dired-omit-files "^\\.DS_Store$")
 
   ;; 显示行号
   ;; (global-linum-mode)
@@ -484,7 +527,8 @@ you should place your code here."
 
   ;; add-to-list
   ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . js2-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . js2-jsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . typescript-mode))
   (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
 
   ;; 导致原生 SPC s s 不能使用了
@@ -525,7 +569,7 @@ you should place your code here."
 
 
   ;; 实时加载最新文件
-  (setq load-prefer-newer t)
+  ;; (setq load-prefer-newer t)
   (setq-default line-spacing 1)
 
 
@@ -537,7 +581,7 @@ you should place your code here."
   ;; (setq helm-buffer-max-length 50)
 
   ;; (tool-bar-mode -1)
-  (menu-bar-mode nil)
+  ;; (menu-bar-mode nil)
 
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-auto-character-face-perc 3)
@@ -549,7 +593,13 @@ you should place your code here."
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
   (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
   (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-off)) 'append)
-  (add-hook 'find-file-hook 'my-find-file-check-make-large-file)
+  ;; (add-hook 'find-file-hook 'my-find-file-check-make-large-file)
+
+  ;; (defun fri3nds-set-en-input ()
+    ;; (set-input-method default-input-method))
+
+  ;; (add-hook 'evil-normal-state-entry-hook 'deactivate-input-method)
+  ;; (add-hook 'evil-insert-state-entry-hook 'deactivate-input-method)
 
   ;; improve the performance of opening large file
   (defun my-find-file-check-make-large-file ()
@@ -557,6 +607,8 @@ you should place your code here."
       (progn (fundamental-mode)
         (buffer-disable-undo)
         (hl-line-mode -1))))
+
+  (global-nlinum-mode)
 
   (defun my-prog-mode-hook ()
     "active after prog-mode"
@@ -598,7 +650,7 @@ you should place your code here."
     (dolist (buf (buffer-list))
       (with-current-buffer buf
         (when (and (buffer-file-name) (file-exists-p (buffer-file-name)) (not (buffer-modified-p)))
-          (revert-buffer t t t) )))
+          (revert-buffer t t) t)))
     ;; (neo-buffer-refresh)
     ;; (neotree-project-dir)
     (message "Refreshed open files.") )
@@ -650,7 +702,7 @@ If the universal prefix argument is used then will the windows too."
     (interactive "P")
     (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
     (when (equal '(4) arg) (delete-other-windows))
-    (message (format "Killing all buffers except ----- \"%s\" "
+    (message (format "Killing all buffers except --------- \"%s\" "
                (buffer-name))))
 
 
@@ -693,6 +745,7 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
                         'word)
         t)))
 
+
   (defun my-prompt-input ()
     "Prompt input object for translate."
     (let ((current-word (my-region-or-word)))
@@ -707,21 +760,39 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
     (let ((sym (my-prompt-input)))
         (engine/search-google sym)))
 
+  (defun toggle-string-case (str)
+    (let ((upper-str (upcase str)))
+      (if (string= upper-str str)
+        (downcase str)
+        upper-str)))
+
+  (defun upper-first-char-of-word-at-point ()
+    (interactive)
+    (let ((str (thing-at-point 'word))
+           (bounds (bounds-of-thing-at-point 'word)))
+      (when (and str (> (length str) 0))
+        (let ((first-char (substring str nil 1))
+               (rest-str (substring str 1)))
+          (kill-region (car bounds) (cdr bounds))
+          (insert (concat (toggle-string-case first-char) rest-str))))))
+
   (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
   ;; hot-key
   (spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
-  (spacemacs/set-leader-keys "ag" 'helm-ag)
-  (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
+  (spacemacs/set-leader-keys "ag" 'counsel-ag)
+  ;; (spacemacs/set-leader-keys "ag" 'helm-ag)
+  ;; (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
   (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
   (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
   (spacemacs/set-leader-keys "bo" 'kill-other-buffers)
   ;; (spacemacs/set-leader-keys "br" 'revert-buffer-no-confirm)
   (spacemacs/set-leader-keys "br" 'revert-all-buffers)
-  ;; (spacemacs/set-leader-keys "by" 'spacemacs/copy-whole-buffer-to-clipboard)
   (spacemacs/set-leader-keys "cc" 'neotree-project-dir)
   (spacemacs/set-leader-keys "cd" 'youdao-dictionary-search-from-input)
+  ;; (spacemacs/set-leader-keys "cd" 'google-translate-at-point)
   (spacemacs/set-leader-keys "ch" 'spacemacs/evil-search-clear-highlight)
+  ;; (spacemacs/set-leader-keys "dc" 'helm-dash-at-point)
   (spacemacs/set-leader-keys "dd" 'dired-jump)
   (spacemacs/set-leader-keys "df" 'magit-diff-buffer-file)
   (spacemacs/set-leader-keys "dt" 'magit-diff-working-tree)
@@ -730,6 +801,8 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
 
   (spacemacs/set-leader-keys "by" 'just-get-buffer-file-the-name)
   (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
+  (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
+  (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
   (spacemacs/set-leader-keys "fy" 'spacemacs/show-and-copy-buffer-filename)
 
   (spacemacs/set-leader-keys "gb" 'magit-blame)
@@ -752,31 +825,57 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
   (spacemacs/set-leader-keys "nn" 'next-buffer)
 
   (spacemacs/set-leader-keys "qq" 'neotree-hide)
-  (spacemacs/set-leader-keys "ss" 'spacemacs/helm-file-smart-do-search)
-  (spacemacs/set-leader-keys "sf" 'spacemacs/helm-swoop-region-or-symbol)
+  (spacemacs/set-leader-keys "ss" 'counsel-grep)
+  (spacemacs/set-leader-keys "sf" 'counsel-grep-or-swiper)
+  ;; (spacemacs/set-leader-keys "ss" 'spacemacs/helm-file-smart-do-search)
+  ;; (spacemacs/set-leader-keys "sf" 'spacemacs/helm-swoop-region-or-symbol)
   (spacemacs/set-leader-keys "wd" 'delete-window)
   (spacemacs/set-leader-keys "wo" 'delete-other-windows)
   (spacemacs/set-leader-keys "wy" 'winner-redo)
   (spacemacs/set-leader-keys "tt" 'neotree-toggle)
+  (spacemacs/set-leader-keys "yy" 'spacemacs/copy-whole-buffer-to-clipboard)
   (spacemacs/set-leader-keys "zz" 'eshell)
 
   (spacemacs/set-leader-keys "`" 'goto-last-change)
   (global-set-key (kbd "<f8>") 'neotree-project-dir)
   (global-set-key (kbd "<f9>") 'neotree-toggle)
   (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-  (global-set-key (kbd "s-b") 'helm-mini)
-  (global-set-key (kbd "s-k") 'helm-projectile-find-file)
+  ;; (global-set-key (kbd "s-b") 'helm-mini)
+  ;; (global-set-key (kbd "s-k") 'helm-projectile-find-file)
   (global-set-key (kbd "s-j") 'avy-goto-char)
-  (global-set-key (kbd "s-f") 'spacemacs/helm-find-files)
+  (global-set-key (kbd "s-f") 'evil-ex-search-forward)
   (global-set-key (kbd "s-y") 'redo)
-  (global-set-key (kbd "s-2") 'end-of-line)
-  (global-set-key (kbd "s-1") 'beginning-of-line)
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+  (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
+  (define-key evil-visual-state-map (kbd "L") 'evil-end-of-line)
+  ;; (define-key evil-normal-state-map (kbd "L") 'end-of-line)
+  (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
+  (define-key evil-visual-state-map (kbd "H") 'evil-beginning-of-line)
+  ;; (define-key evil-normal-state-map (kbd "DEL") 'evil-goto-first-line)
+  ;; (define-key evil-visual-state-map (kbd "DEL") 'evil-goto-first-line)
+  ;; (define-key evil-normal-state-map (kbd "RET") 'evil-goto-line)
+  ;; (define-key evil-visual-state-map (kbd "RET") 'evil-goto-line)
+  (define-key evil-normal-state-map (kbd "zM") 'evil-open-folds)
+  ;; (define-key evil-normal-state-map (kbd "/") 'evil-ex-search-forward)
+  ;; (define-key evil-visual-state-map (kbd "/") 'evil-ex-search-forward)
+  ;; (define-key evil-normal-state-map (kbd "n") 'evil-ex-search-next)
+  ;; (define-key evil-visual-state-map (kbd "n") 'evil-ex-search-next)
+  ;; (define-key evil-normal-state-map (kbd "N") 'evil-ex-search-previous)
+  ;; (define-key evil-visual-state-map (kbd "N") 'evil-ex-search-previous)
+
+  (global-set-key (kbd "s-u") 'upper-first-char-of-word-at-point)
+
+
   (global-set-key (kbd "<S-up>") 'shrink-window)
   (global-set-key (kbd "<S-down>") 'enlarge-window)
   (global-set-key (kbd "<S-left>") 'shrink-window-horizontally)
   (global-set-key (kbd "<S-right>") 'enlarge-window-horizontally)
   (global-set-key (kbd "<s-left>") 'beginning-of-line-text)
   (global-set-key (kbd "<s-right>") 'end-of-line)
+
+  (global-set-key (kbd "s-0") 'spacemacs/persp-switch-to-0)
+  (global-set-key (kbd "s-1") 'spacemacs/persp-switch-to-1)
   ;; hot-key
 
 
@@ -790,7 +889,7 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
   ;; 设置 neotree 主题
   ;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (setq neo-theme 'icons)
-  (setq neo-vc-integration (quote (face)))
+  (setq neo-vc-integration (quote (char)))
 
   (with-eval-after-load 'neotree
     (define-key neotree-mode-map (kbd "h") 'spacemacs/neotree-collapse)
@@ -802,21 +901,91 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
     )
 
 
+
+
+
+  ;; (defun lx/layout-format-name (name pos)
+  ;;   "Format the layout name given by NAME for display in mode-line."
+  ;;   (let* ((layout-name (if (file-directory-p name)
+  ;;                           (file-name-nondirectory (directory-file-name name))
+  ;;                         name))
+  ;;         (string-name (format "%s" layout-name))
+  ;;         (current (equal name (spacemacs//current-layout-name)))
+  ;;         (caption (concat (number-to-string (if (eq 9 pos) 0 (1+ pos)))
+  ;;                           ". " string-name)))
+  ;;     (if current
+  ;;         (propertize (concat "❰❰ " caption " ❱❱") 'face 'warning)
+  ;;       caption)))
+
+
+  ;; (defun lx/layouts-for-title-bar ()
+  ;;   "Return a one liner string containing all the layout names."
+  ;;   (let* ((persp-list (or (persp-names-current-frame-fast-ordered)
+  ;;                         (list persp-nil-name)))
+  ;;         (formatted-persp-list
+  ;;           (concat " "
+  ;;                   (mapconcat (lambda (persp)
+  ;;                               (lx/layout-format-name
+  ;;                                 persp (position persp persp-list)))
+  ;;                             persp-list "          "))))
+  ;;     formatted-persp-list))
+
+
+  ;; (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
+  (defun fri3nds/buffer-format-name (name pos)
+    "Format the layout name given by NAME for display in mode-line."
+    (let* ((string-name (format "%s" name))
+            (current (equal string-name (format "%s"(buffer-name))))
+            (caption (concat (number-to-string (1+ pos))
+                       ". " string-name)))
+      (if current
+        ;; (propertize (concat "❰❰ " caption " ❱❱") 'face 'font-lock-constant-face)
+        ;; (propertize (concat "「 " caption " 」") 'face 'font-lock-constant-face)
+        (propertize (concat "『 " caption " 』") 'face 'font-lock-constant-face)
+        caption)))
+
+  (defun not-string-match-some-list-ietm (regex-list str)
+    (not (catch 'break
+           (dolist (regex-item regex-list)
+             (when (string-match-p regex-item str)
+               (throw 'break t))))))
+
+  (defun filter-buffer-list ()
+    (let ((filter-buffers '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*Messages")))
+      (seq-filter (lambda (elt)
+                    (not-string-match-some-list-ietm filter-buffers (format "%s" elt)))
+      (buffer-list))))
+
+  (defun fri3nds/buffer-list-for-title-bar()
+    "Return a one liner string containing all the buffer names."
+    (let* ((list-of-buffer (filter-buffer-list))
+    ;; (let* ((list-of-buffer (buffer-list))
+            (format-buffer-name
+              (concat " "
+                (mapconcat (lambda (buf)
+                             (fri3nds/buffer-format-name
+                               buf (position buf list-of-buffer)))
+                  list-of-buffer "       "))))
+      format-buffer-name))
+
+  (setq frame-title-format '(:eval (fri3nds/buffer-list-for-title-bar)))
+  ;; (setq frame-title-format
+  ;;   '(buffer-file-name "%f"
+  ;;      (dired-directory dired-directory "%b")))
+
+
   ;; (which-function-mode)
   (setq-default header-line-format
-                ;; '((which-func-mode ("" buffer-file-name " "))))
-                '(buffer-file-name "%f"
-                                   (dired-directory dired-directory "%b")))
+    '(buffer-file-name "%f"
+       (dired-directory dired-directory "%b")))
+
+  ;; (setq-default header-line-format '(:eval (fri3nds/buffer-list-for-title-bar)))
+
 
   ;; 设置 gui 顶部显示当前 buffer 文件的 full-path
-  (setq frame-title-format
-        '(buffer-file-name "%f"
-                           (dired-directory dired-directory "%b")))
-  ;; helm 查找文件时，file no exist 不创建 buffer
-  (setq helm-ff-newfile-prompt-p nil)
-
-
-
+  ;; (setq frame-title-format
+  ;;       '(buffer-file-name "%f"
+  ;;                          (dired-directory dired-directory "%b")))
 
 
   ;; format-mode-line
@@ -835,6 +1004,9 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
   (defun spaceline--unicode-number (str)
     "Return a nice unicode representation of a single-digit number STR."
     (cond
+      ;; ((string= "1" str) "◀➊▶")
+      ;; ((string= "1" str) "1⃣")
+
       ((string= "1" str) "➊")
       ((string= "2" str) "➋")
       ((string= "3" str) "➌")
@@ -844,7 +1016,20 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
       ((string= "7" str) "➐")
       ((string= "8" str) "➑")
       ((string= "9" str) "➒")
-      ((string= "0" str) "➓")))
+      ((string= "0" str) "➓")
+      ;; ((string= "1" str) "①")
+      ;; ((string= "2" str) "②")
+      ;; ((string= "3" str) "③")
+      ;; ((string= "4" str) "④")
+      ;; ((string= "5" str) "⑤")
+      ;; ((string= "6" str) "⑥")
+      ;; ((string= "7" str) "⑦")
+      ;; ((string= "8" str) "⑧")
+      ;; ((string= "9" str) "⑨")
+      ;; ((string= "0" str) "⑩")
+      ))
+
+  (window-numbering-mode)
 
   (defun window-number-mode-line ()
     "The current window number. Requires `window-numbering-mode' to be enabled."
@@ -889,14 +1074,16 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
          (`interrupted " -")
          (`suspicious '(propertize " ?" 'face 'warning)))))
 
+
+
   (setq-default mode-line-format
     (list
       " %1"
       '(:eval (propertize
                 (window-number-mode-line)
                 'face
-                'font-lock-type-face))
-      " "
+                'font-lock-keyword-face))
+
       '(:eval (custom-update-persp-name))
 
       "%1 "
@@ -924,9 +1111,9 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
       ;; is this buffer read-only?
       '(:eval (when buffer-read-only
                 (concat ","  (propertize "RO"
-                               'face 'font-lock-type-face
+                               'face 'font-lock-warning-face
                                'help-echo "Buffer is read-only"))))
-      " "
+      "    "
 
       ;; anzu
       anzu--mode-line-format
@@ -936,12 +1123,14 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
 
       ;; line and column
       " " ;; '%02' to set to 2 chars at least; prevents flickering
-      (propertize "%04l" 'face 'font-lock-type-face)
-      ;; ","
-      (propertize "%04c" 'face 'font-lock-type-face)
+      "("
+      (propertize "%4l" 'face 'font-lock-type-face)
+      ","
+      (propertize "%4c" 'face 'font-lock-type-face)
+      ")"
 
       ;; the current major mode for the buffer.
-      " "
+      "    "
       '(:eval (propertize "%m" 'face 'font-lock-string-face
                 'help-echo buffer-file-coding-system))
 
@@ -960,15 +1149,13 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
       ;; global-mode-string goes in mode-line-misc-info
       mode-line-misc-info
 
-
       (mode-line-fill 'mode-line 30)
-
 
       ;; (propertize "%z" 'face 'font-lock-type-face)
 
       ;; mode-line-end-spaces
       ;; add the time, with the date and the emacs uptime in the tooltip
-      '(:eval (propertize (format-time-string "%a, %Y %b %2d, %H:%M") 'face 'font-lock-constant-face))
+      '(:eval (propertize (format-time-string "%a, %Y %m %d, %H:%M") 'face 'font-lock-constant-face))
       "  "
       '(:eval (buffer-encoding-abbrev))
       ))
@@ -983,7 +1170,7 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
 
   ;; 设置 git-gutter
   ;; (global-git-gutter-mode)
-  ;; (git-gutter:linum-setup)
+  (git-gutter:linum-setup)
   (setq git-gutter-fr:side 'right-fringe)
   (setq-default right-fringe-width  20)
   ;; (set-face-foreground 'git-gutter-fr:modified "yellow")
@@ -991,30 +1178,28 @@ See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
   ;; (set-face-foreground 'git-gutter-fr:deleted  "#D62C2C")
   ;; (set-face-foreground 'git-gutter-fr:deleted  "red")
 
-  ;; (menu-bar-mode nil)
+  ;; (menu-bar-mode -1)
+  (spacemacs/toggle-menu-bar-off)
 
   ;; ======================= ending by myself ===================
 
 
   )
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
-;; (set-face-foreground 'git-gutter:separator "yellow")
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol t)
- '(git-gutter:update-interval 1 t)
- '(magit-diff-use-overlays nil)
- '(package-selected-packages
-   (quote
-    (engine-mode js-doc youdao-dictionary yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme solarized-theme skewer-mode scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode markdown-toc linum-relative link-hint less-css-mode keyfreq json-mode js2-refactor info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation highlight-indent-guides hide-comnt help-fns+ helm-swoop helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md find-file-in-project fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode editorconfig dumb-jump doom-themes diff-hl define-word company-statistics column-enforce-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-complete all-the-icons-dired aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+  '(package-selected-packages
+     (quote
+       ())))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:foreground "#ABB2BF" :background "#282C34")))))
