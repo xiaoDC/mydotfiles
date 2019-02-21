@@ -1,0 +1,166 @@
+{
+  "workbench.statusBar.visible": true,
+  "workbench.activityBar.visible": true,
+  "workbench.editor.showTabs": true,
+  "workbench.commandPalette.preserveInput": false,
+  "workbench.sideBar.location": "left",
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.editor.enablePreview": false,
+
+  // "workbench.colorCustomizations": {
+    // "statusBar.background": "#282c34",
+    // "statusBar.noFolderBackground": "#282c34",
+    // "statusBar.debuggingBackground": "#282c34"
+  // },
+
+  // "statusBar.background": "#282c34",
+  // "statusBar.noFolderBackground": "#282c34",
+  // "statusBar.debuggingBackground": "#282c34",
+  // "activityBar.background": "#282c34"
+  // "editorGroup.background": "#282c34",
+  // "sideBar.background": "#282c34"
+  "window.title": "${activeEditorLong}",
+
+
+  "explorer.openEditors.visible": 0,
+  "explorer.autoReveal": true,
+
+
+  "editor.stablePeek": false,
+  "editor.renderIndentGuides": true,
+  "editor.tabSize": 2,
+  "editor.fontSize": 15,
+  // "editor.fontFamily": "Hack",
+  // "editor.fontFamily": "Pica10 BT",
+  // "editor.fontFamily": "Operator Mono",
+  "editor.fontFamily": "Courier New",
+  // "editor.fontFamily": "CamingoCode",
+  // "editor.fontFamily": "Go Mono",
+  // "editor.fontFamily": "Courier New",
+  // "editor.fontFamily": "Anonymous Pro",
+  // "editor.fontFamily": "Courier New",
+  // "editor.fontFamily": "Source Code Pro",
+  // "editor.fontFamily": "consolas",
+  // "editor.fontFamily": "PT Mono",
+  // "editor.fontFamily": "DejaVu Sans Mono",
+  // "editor.fontFamily": "Office Code Pro",
+  // "editor.fontFamily": "Dank Mono",
+  "editor.fontWeight": "400",
+  "editor.fontLigatures": true,
+  "editor.lineHeight": 20,
+  "editor.wordWrap": "on",
+  "editor.wrappingIndent": "indent",
+  "editor.renderWhitespace": "all",
+  "editor.renderControlCharacters": false,
+  "editor.rulers": [
+    80
+  ],
+
+  // "editor.renderLineHighlight": "gutter",
+
+  "editor.minimap.enabled": true,
+  "editor.minimap.renderCharacters": true,
+  "editor.minimap.showSlider": "always",
+  "editor.formatOnSave": false,
+  // "editor.renderWhitespace": "boundary",
+
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+
+  "typescript.check.npmIsInstalled": false,
+  "javascript.validate.enable": false,
+  "extensions.ignoreRecommendations": true,
+
+
+  "eslint.autoFixOnSave": false,
+
+
+  // "reason.diagnostics.tools": [
+  //   "merlin",
+  //   "bsb"
+  // ],
+
+
+  // "vim.cmdLineInitialColon": true,
+  "vim.useSystemClipboard": true,
+  "vim.hlsearch": true,
+  "vim.surround": true,
+  "vim.disableExtension": false,
+  "vim.statusBarColorControl": true,
+  // "vim.statusBarColors": {
+    // "normal": "#282c34",
+    // "insert": "#00007D",
+    // "visual": "#FF5E24",
+    // "visualline": "#FF5E24",
+    // "visualblock": "#A3BE8C",
+    // "replace": "#D08770"
+  // },
+  "vim.normalModeKeyBindingsNonRecursive": [{
+    "before": ["H"],
+    "after": [],
+    "commands": [{
+      "command": "cursorHome",
+      "args": []
+    }]
+  }, {
+    "before": ["L"],
+    "after": ["$"]
+  }, {
+    "before": ["K"],
+    "after": [],
+    "commands": [{
+      "command": "workbench.action.nextEditor",
+      "args": []
+    }],
+  }, {
+    "before": ["M"],
+    "after": [],
+    "commands": [{
+      "command": "workbench.action.previousEditor",
+      "args": []
+    }],
+  }, {
+    "before": ["z", "a"],
+    "after": [],
+    "commands": [{
+      "command": "editor.unfold",
+      "args": []
+    }]
+  }, {
+    "before": ["Q"],
+    "after": [],
+    "commands": [{
+      "command": "workbench.action.showCommands",
+      "args": []
+    }]
+  }],
+//
+
+  "clojureVSCode.autoStartNRepl": false,
+  "haskell.hlint.executablePath": "hlint",
+  "haskell.ghcMod.executablePath": "stack",
+  "window.zoomLevel": 1,
+  // "workbench.colorCustomizations": {
+  //   "statusBar.background": "#FF5E24",
+  //   "statusBar.noFolderBackground": "#FF5E24",
+  //   "statusBar.debuggingBackground": "#FF5E24"
+  // }
+  // "symbolOutline.doSort": false,
+  "better-comments.highlightPlainText": true,
+  "better-comments.multilineComments": true,
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#005f5f",
+    "statusBar.noFolderBackground": "#005f5f",
+    "statusBar.debuggingBackground": "#005f5f"
+  },
+  "[org]": {},
+  "workbench.colorTheme": "Abyss",
+  "workbench.iconTheme": "vs-nomo-dark",
+  "python.jediEnabled": false,
+  "python.pythonPath": "/Users/fri3nds/.pyenv/versions/2.7.14/bin/python",
+  "python.linting.pylintEnabled": true,
+  "breadcrumbs.enabled": false,
+  "languageServerHaskell.enableHIE": true,
+  "editor.codeActionsOnSaveTimeout": 350,
+}
