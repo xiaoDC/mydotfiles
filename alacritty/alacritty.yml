@@ -58,7 +58,7 @@ window:
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
-  history: 10000
+  history: 20000
 
   # Number of lines the viewport will move for every line scrolled when
   # scrollback is enabled (history > 0).
@@ -85,18 +85,18 @@ scrolling:
 #   - EaseOutExpo
 #   - EaseOutCirc
 #   - Linear
-#
+
 # Specifying a `duration` of `0` will disable the visual bell.
 visual_bell:
   animation: EaseOutExpo
-  duration: 0
+  duration: 20
   color: '0xffffff'
 
 # Background opacity
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.92
+background_opacity: 0.95
 
 # Mouse bindings
 #
@@ -140,10 +140,9 @@ mouse:
     #   - (macOS) open
     #   - (Linux) xdg-open
     #   - (Windows) explorer
-    #launcher:
-    #  program: xdg-open
+    launcher:
+      program: open
     #  args: []
-
     # URL modifiers
     #
     # These are the modifiers that need to be held down for opening URLs when clicking
@@ -289,7 +288,7 @@ key_bindings:
   #         args: ['-e', '/Users/fri3nd/.alacritty.yml'],
   #       },
   #   }
-  # - { key: N, mods: Command, action: SpawnNewInstance }
+  - { key: C, mods: Command, action: Copy }
   # - { key: H, mods: Command, action: Hide }
 
 # Shell
@@ -328,13 +327,13 @@ font:
     style: Italic
 
   # Point size
-  size: 15
+  size: 17
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
-    x: 0
-    y: 0
+    x: 1
+    y: 3
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
@@ -365,68 +364,68 @@ font:
     # Keep the log file after quitting Alacritty.
     persistent_logging: false
 
-# Colors (Solarized Dark)
-colors:
-  # Default colors
-  primary:
-    background: '#002b36' # base03
-    foreground: '#839496' # base0
-
-  # Cursor colors
-  cursor:
-    text: '#002b36' # base03
-    cursor: '#839496' # base0
-
-  # Normal colors
-  normal:
-    black: '#073642' # base02
-    red: '#dc322f' # red
-    green: '#859900' # green
-    yellow: '#b58900' # yellow
-    blue: '#268bd2' # blue
-    magenta: '#d33682' # magenta
-    cyan: '#2aa198' # cyan
-    white: '#eee8d5' # base2
-
-  # Bright colors
-  bright:
-    black: '#586e75' # base01
-    red: '#cb4b16' # orange
-    green: '#586e75' # base01
-    yellow: '#657b83' # base00
-    blue: '#839496' # base0
-    magenta: '#6c71c4' # violet
-    cyan: '#93a1a1' # base1
-    white: '#fdf6e3' # base3
-
-# # Colors (Blood Moon)
+# # Colors (Solarized Dark)
 # colors:
 #   # Default colors
 #   primary:
-#     background: '#10100E'
-#     foreground: '#C6C6C4'
+#     background: '#002b36' # base03
+#     foreground: '#839496' # base0
+
+#   # Cursor colors
+#   cursor:
+#     text: '#002b36' # base03
+#     cursor: '#839496' # base0
 
 #   # Normal colors
 #   normal:
-#     black: '#10100E'
-#     red: '#C40233'
-#     green: '#009F6B'
-#     yellow: '#FFD700'
-#     blue: '#0087BD'
-#     magenta: '#9A4EAE'
-#     cyan: '#20B2AA'
-#     white: '#C6C6C4'
+#     black: '#073642' # base02
+#     red: '#dc322f' # red
+#     green: '#859900' # green
+#     yellow: '#b58900' # yellow
+#     blue: '#268bd2' # blue
+#     magenta: '#d33682' # magenta
+#     cyan: '#2aa198' # cyan
+#     white: '#eee8d5' # base2
 
 #   # Bright colors
 #   bright:
-#     black: '#696969'
-#     red: '#FF2400'
-#     green: '#03C03C'
-#     yellow: '#FDFF00'
-#     blue: '#007FFF'
-#     magenta: '#FF1493'
-#     cyan: '#00CCCC'
-#     white: '#FFFAFA'
+#     black: '#586e75' # base01
+#     red: '#cb4b16' # orange
+#     green: '#586e75' # base01
+#     yellow: '#657b83' # base00
+#     blue: '#839496' # base0
+#     magenta: '#6c71c4' # violet
+#     cyan: '#93a1a1' # base1
+#     white: '#fdf6e3' # base3
+
+# Colors (Blood Moon)
+colors:
+  # Default colors
+  primary:
+    background: '#10100E'
+    foreground: '#C6C6C4'
+
+  # Normal colors
+  normal:
+    black: '#10100E'
+    red: '#C40233'
+    green: '#009F6B'
+    yellow: '#FFD700'
+    blue: '#0087BD'
+    magenta: '#9A4EAE'
+    cyan: '#20B2AA'
+    white: '#C6C6C4'
+
+  # Bright colors
+  bright:
+    black: '#696969'
+    red: '#FF2400'
+    green: '#03C03C'
+    yellow: '#FDFF00'
+    blue: '#007FFF'
+    magenta: '#FF1493'
+    cyan: '#00CCCC'
+    white: '#FFFAFA'
 
 # # Colors (Snazzy)
 # colors:
@@ -456,29 +455,3 @@ colors:
 #     magenta: '#ff6ac1'
 #     cyan: '#9aedfe'
 #     white: '#f1f1f0'
-
-# # Colors (Pencil Dark)
-# colors:
-#   # Default Colors
-#   primary:
-#     background: '#212121'
-#     foreground: '#f1f1f1'
-#   # Normal colors
-#   normal:
-#     black: '#212121'
-#     red: '#c30771'
-#     green: '#10a778'
-#     yellow: '#a89c14'
-#     blue: '#008ec4'
-#     magenta: '#523c79'
-#     cyan: '#20a5ba'
-#     white: '#e0e0e0'
-#   bright:
-#     black: '#212121'
-#     red: '#fb007a'
-#     green: '#5fd7af'
-#     yellow: '#f3e430'
-#     blue: '#20bbfc'
-#     magenta: '#6855de'
-#     cyan: '#4fb8cc'
-#     white: '#f1f1f1'
