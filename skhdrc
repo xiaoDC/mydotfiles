@@ -1,0 +1,61 @@
+cmd - i : open /Applications/Alacritty.app
+cmd - return : open /Applications/Emacs.app
+# cmd - return : ~/Applications/iTerm.app/Contents/MacOS/iTerm2 --single-instance -d ~
+
+# focus window (同一个空间切换窗口焦点)
+cmd - h : yabai -m window --focus west
+cmd - j : yabai -m window --focus south
+cmd - k : yabai -m window --focus north
+cmd - m : yabai -m window --focus east
+
+# focus monitor
+shift + cmd - 1  : yabai -m display --focus 1
+shift + cmd - 2  : yabai -m display --focus 2
+shift + cmd - 3  : yabai -m display --focus 3
+ctrl + cmd - o  : yabai -m window --focus recent
+
+# send window to monitor and follow focus
+ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
+ctrl + cmd - 2  : yabai -m window --display 2; yabai -m display --focus 2
+ctrl + cmd - 3  : yabai -m window --display 3; yabai -m display --focus 3
+
+# swap window(同一个空间调整窗口位置)
+ctrl + cmd - h : yabai -m window --swap west
+ctrl + cmd - j : yabai -m window --swap south
+ctrl + cmd - k : yabai -m window --swap north
+ctrl + cmd - l : yabai -m window --swap east
+
+
+# balance size of windows
+ctrl + cmd - 0 : yabai -m space --balance
+
+
+# make floating window fill screen
+ctrl + cmd - up     : yabai -m window --grid 1:1:0:0:1:1
+# make floating window fill left-half of screen
+ctrl + cmd - left   : yabai -m window --grid 1:2:0:0:1:1
+# make floating window fill right-half of screen
+ctrl + cmd - right  : yabai -m window --grid 1:2:1:0:1:1
+# rotate tree
+ctrl + cmd - r : yabai -m space --rotate 90
+
+# mirror tree y-axis(纵轴调换窗口)
+ctrl + cmd - y : yabai -m space --mirror y-axis
+# mirror tree x-axis(横轴调换窗口)
+ctrl + cmd - x : yabai -m space --mirror x-axis
+
+# toggle desktop offset
+ctrl + cmd - a : yabai -m space --toggle padding; yabai -m space --toggle gap
+
+# toggle window native fullscreen
+ctrl + cmd - f : yabai -m window --toggle native-fullscreen
+
+# toggle window split type
+ctrl + cmd - e : yabai -m window --toggle split
+
+# toggle window border
+ctrl + cmd - b : yabai -m window --toggle border
+
+# float / unfloat window and center on screen (控制窗口是否进入float模式,进入的话就不会自动被排列)
+ctrl + cmd - t : yabai -m window --toggle float;\
+                 yabai -m window --grid 2:2:1:1:2:2
